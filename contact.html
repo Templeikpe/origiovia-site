@@ -1,8 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+<!-- PAGE : Contact.
+     Contient : 4 boutons de réservation Google Agenda, la carte WhatsApp et la carte E-mail, le formulaire de message, l'adresse du siège.
+     Le formulaire utilise Netlify Forms (messages visibles dans Netlify, onglet Forms) et redirige vers thank-you.html.
+     Le menu (en-tête), le menu mobile et le pied de page sont COPIÉS à l'identique dans les 9 pages (pas de système d'include). Toute modification de ces blocs doit être répétée dans chaque fichier .html.
+     Commentaires rédigés en français ; ils n'ont aucun effet sur l'affichage. -->
 <head>
 <meta charset="UTF-8">
+<!-- Adaptation mobile : sans cette balise, le site s'affiche en version bureau réduite sur téléphone. -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- RÉFÉRENCEMENT (SEO) : titre de l'onglet et de Google, meta description, adresse canonique, aperçu de partage (Open Graph pour Facebook/LinkedIn/WhatsApp, Twitter). Textes propres à chaque page : les modifier page par page. L'adresse canonical doit rester celle du domaine principal du site. -->
 <title>Contact OrigoVia Partners | Cashew Nuts Trade Experts</title>
 <meta name="description" content="Get in touch with OrigoVia Partners for cashew nut sourcing, ESG due diligence, or investment opportunities between Cote d'Ivoire and Europe.">
 <link rel="canonical" href="https://origoviapartners.com/contact.html">
@@ -15,25 +22,32 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Contact OrigoVia Partners | Cashew Nuts Trade Experts">
 <meta name="twitter:description" content="Get in touch with OrigoVia Partners for cashew nut sourcing, ESG due diligence, or investment opportunities between Cote d'Ivoire and Europe.">
+<!-- Polices Google Fonts (Plus Jakarta Sans pour les titres, Inter pour le texte). Si on change de police, modifier aussi les variables de police dans :root de assets/styles.css. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- Feuille de style unique du site : toutes les couleurs et mises en page sont dans assets/styles.css. -->
 <link rel="stylesheet" href="assets/styles.css">
+  <!-- Icône d'onglet (favicon). Elle pointe vers logo.jpeg ; l'idéal est un vrai fichier .png ou .ico carré. -->
   <link rel="icon" type="image/png" href="assets/img/logo.jpeg">
 </head>
 <body>
 
+<!-- EN-TÊTE FIXE. Le menu (en-tête), le menu mobile et le pied de page sont COPIÉS à l'identique dans les 9 pages (pas de système d'include). Toute modification de ces blocs doit être répétée dans chaque fichier .html.
+     L'id siteHeader est utilisé par main.js (classe scrolled au défilement). -->
 <header id="siteHeader" class="solid">
   <div class="wrap navbar">
     <a href="index.html" class="logo">
       <span class="logo-mark"><img src="assets/img/logo.jpeg" alt="OrigoVia Partners"></span>
       OrigoVia Partners
     </a>
+    <!-- Menu de bureau (caché sous 900 px). Pour ajouter une page : ajouter un <li> ici ET un bloc dans le menu mobile plus bas. -->
     <nav class="primary">
       <ul>
         <li><a href="index.html" class="top-link">Home</a></li>
         <li>
           <a href="for-importers.html" class="top-link">For Importers <span class="caret"></span></a>
+          <!-- Sous-menu déroulant (affiché au survol par le CSS). Les liens du type page.html#id visent les sections qui portent cet id. -->
           <div class="dropdown">
             <a href="for-importers.html#sourcing">The value chain challenge</a>
             <a href="for-importers.html#quality">ESG &amp; due diligence</a>
@@ -69,18 +83,22 @@
         <li><a href="contact.html" class="top-link active">Contact</a></li>
       </ul>
     </nav>
+    <!-- Conteneur du widget Google Translate. Il est caché mais NE DOIT PAS être supprimé : sinon la traduction ne marche plus (voir main.js, section 5). -->
     <div id="google_translate_element" class="gt-hidden"></div>
+    <!-- Sélecteur de langue. Pour ajouter une langue : une option ici, une option dans le sélecteur du menu mobile, et le code dans includedLanguages en bas de page. -->
     <select class="lang-switch" aria-label="Language">
       <option value="en">EN</option>
       <option value="fr">FR</option>
       <option value="nl">NL</option>
     </select>
+    <!-- Bouton hamburger (mobile). Piloté par main.js, section 4. -->
     <button class="hamburger" id="hamburger" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
   </div>
 </header>
 
+<!-- MENU MOBILE : voile sombre puis panneau latéral. Doit contenir les mêmes pages que le menu de bureau. -->
 <div class="mobile-nav-backdrop" id="mobileBackdrop"></div>
 <nav class="mobile-nav" id="mobileNav">
   <select class="lang-switch" aria-label="Language">
@@ -130,7 +148,9 @@
   <a href="contact.html">Contact</a>
 </nav>
 
+<!-- Section sur fond blanc. -->
 <section class="page-banner">
+  <!-- Tracé décoratif animé (SVG) : purement visuel, sans lien avec les données. -->
   <div class="hero-route">
     <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
       <path class="route-path" d="M120,620 C260,560 300,420 420,380 C540,340 560,220 700,180 C820,150 900,220 1040,140" />
@@ -141,21 +161,56 @@
     <h1>Get in Touch with Our Experts</h1>
     <p class="lead">Whether you are looking to eliminate quality risks in your Ivorian supply chain, seek a strategic consortium partner for an RVO grant, or want to scout investable agro-industrial projects, contact OrigoVia Partners for an exploratory discussion at the board level.</p>
     <div class="hero-actions" style="margin-top:28px;display:flex;gap:14px;flex-wrap:wrap;">
-      <a href="https://calendar.app.google/Thnx9nnmnctEwQDo6" class="btn btn-primary">Book a Call</a>
+      <a href="#book-a-call" class="btn btn-primary">Book a Call</a>
       <a href="mailto:contact@origoviapartners.com" class="btn btn-ghost">Email Us</a>
     </div>
   </div>
 </section>
 
-<section class="section-light">
+<!-- RÉSERVATION D'APPEL : 4 boutons, un par profil, chacun vers un agenda Google distinct (ordre : Importers, Processors, Investors/DFIs, Grants/NGOs).
+     Pour changer un agenda : remplacer l'URL calendar.app.google/... dans le href du bouton. Garder target="_blank" rel="noopener" (sécurité : la page ouverte ne peut pas contrôler celle-ci).
+     Il n'y a volontairement pas de catégorie « Autre » : le lien e-mail sous les boutons sert de solution de repli. -->
+<section class="section-light" id="book-a-call">
   <div class="wrap">
-    <div class="card-grid cols-3">
+    <div style="text-align:center;max-width:720px;margin:0 auto 44px;">
+      <h2>Schedule a Strategic Call</h2>
+      <p class="lead" style="margin-top:10px;">Select the option that matches you. Each calendar opens with a short set of qualifying questions, so we arrive at the call already prepared for your context.</p>
+    </div>
+    <div class="card-grid">
       <div class="card reveal" style="text-align:center;border-top:3px solid var(--terracotta);">
-        <div class="card-icon" style="margin:0 auto 24px;"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
-        <h3>Schedule a 15-min Strategic Call</h3>
-        <p>The fastest way to talk to us — pick a slot directly in our calendar, no back-and-forth.</p>
-        <a href="https://calendar.app.google/Thnx9nnmnctEwQDo6" class="btn btn-primary" style="margin-top:14px;">Book a Call</a>
+        <div class="card-icon" style="margin:0 auto 20px;"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.27 6.96 12 12.01l8.73-5.05M12 22.08V12"/></svg></div>
+        <h3 style="font-size:1.05rem;">Importers &amp; EU Buyers</h3>
+        <p style="font-size:.92rem;">For European buyers needing ESG and quality compliance support (CSDDD).</p>
+        <a href="https://calendar.app.google/6U9vUiz1NiB9xsqk6" class="btn btn-primary" style="margin-top:14px;" target="_blank" rel="noopener">Book this call</a>
       </div>
+      <div class="card reveal" style="text-align:center;border-top:3px solid var(--navy);">
+        <div class="card-icon" style="margin:0 auto 20px;"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M3 21h18M5 21V7l8-4 8 4v14M9 21v-6h6v6M9 11h.01M15 11h.01M9 15h.01M15 15h.01"/></svg></div>
+        <h3 style="font-size:1.05rem;">Processors</h3>
+        <p style="font-size:.92rem;">For Ivorian factories improving yield and accessing the European market.</p>
+        <a href="https://calendar.app.google/NPsir18UULUJXDTe7" class="btn btn-primary" style="margin-top:14px;" target="_blank" rel="noopener">Book this call</a>
+      </div>
+      <div class="card reveal" style="text-align:center;border-top:3px solid var(--terracotta-light);">
+        <div class="card-icon" style="margin:0 auto 20px;"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <h3 style="font-size:1.05rem;">Impact Investors &amp; DFIs</h3>
+        <p style="font-size:.92rem;">For funds and development banks evaluating deals against IFC PS2.</p>
+        <a href="https://calendar.app.google/eEkmzYggb95Feuht6" class="btn btn-primary" style="margin-top:14px;" target="_blank" rel="noopener">Book this call</a>
+      </div>
+      <div class="card reveal" style="text-align:center;border-top:3px solid var(--navy-mid);">
+        <div class="card-icon" style="margin:0 auto 20px;"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <h3 style="font-size:1.05rem;">Grants, NGOs &amp; Institutional</h3>
+        <p style="font-size:.92rem;">For institutional partners and grant programs needing on-the-ground execution.</p>
+        <a href="https://calendar.app.google/dyjhPqUeMMbzfX3ZA" class="btn btn-primary" style="margin-top:14px;" target="_blank" rel="noopener">Book this call</a>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:36px;color:var(--ink-soft);font-size:.95rem;">Not sure which applies to you? <a href="mailto:contact@origoviapartners.com">Email us directly</a> and we'll point you to the right conversation.</p>
+  </div>
+</section>
+
+<!-- Cartes WhatsApp et E-mail. Le lien WhatsApp a le format https://wa.me/NUMÉRO : indicatif pays suivi du numéro, sans + ni espaces (31850805084 = +31 85 080 5084).
+     Pour changer l'e-mail : modifier le href mailto: ET le texte du bouton (et le pied de page des 9 pages). -->
+<section class="section-light" style="padding-top:0;">
+  <div class="wrap">
+    <div class="card-grid cols-2">
       <div class="card reveal" style="text-align:center;border-top:3px solid var(--navy);">
         <div class="card-icon" style="margin:0 auto 24px;"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
         <h3>WhatsApp Business</h3>
@@ -172,6 +227,7 @@
   </div>
 </section>
 
+<!-- MESSAGE ÉCRIT + ADRESSE DU SIÈGE (deux colonnes). -->
 <section>
   <div class="wrap form-grid">
     <div class="reveal">
@@ -179,6 +235,7 @@
         <div class="eyebrow">Or send a short message</div>
         <h2>We'll route it to the right team.</h2>
       </div>
+      <!-- FORMULAIRE (Netlify Forms) : data-netlify="true" fait enregistrer les messages dans Netlify (Project > Forms). form-name et name sont OBLIGATOIRES sur chaque champ. Le champ caché bot-field est un piège à robots (anti-spam) : ne pas le supprimer. Après envoi, le visiteur est redirigé vers thank-you.html. Si vous ajoutez un champ, ajoutez-lui un attribut name. -->
       <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/thank-you.html">
         <input type="hidden" name="form-name" value="contact">
         <p style="display:none;"><label>Don't fill this out: <input name="bot-field"></label></p>
@@ -227,6 +284,7 @@
   </div>
 </section>
 
+<!-- Barre des standards (textes stylés, pas des logos). -->
 <section class="section-light">
   <div class="wrap">
     <div class="trust-label reveal">Standards we operate under</div>
@@ -239,6 +297,7 @@
   </div>
 </section>
 
+<!-- PIED DE PAGE : colonnes de liens, e-mail contact@origoviapartners.com, lien LinkedIn. Copié dans les 9 pages. -->
 <footer>
   <div class="wrap">
     <div class="footer-grid">
@@ -259,13 +318,16 @@
         <ul><li><a href="mailto:contact@origoviapartners.com">contact@origoviapartners.com</a></li><li><a href="contact.html">Abidjan, Côte d'Ivoire</a></li><li><a href="https://www.linkedin.com/company/origovia-partners" target="_blank" rel="noopener">LinkedIn</a></li></ul>
       </div>
     </div>
+    <!-- Ligne du bas du pied de page : droits d'auteur et liens légaux (privacy.html, cookies.html). -->
     <div class="footer-bottom">
       <span>© 2026 OrigoVia Partners. All rights reserved.</span>
     </div>
   </div>
 </footer>
 
+<!-- SCRIPTS : main.js gère les animations, le menu mobile, le sélecteur de langue et les onglets (voir l'en-tête de assets/main.js). -->
 <script src="assets/main.js"></script>
+<!-- Initialisation de Google Translate : includedLanguages liste les langues proposées. Les traductions sont automatiques et peuvent contenir des erreurs. -->
 <script type="text/javascript">
   function googleTranslateElementInit() {
     new google.translate.TranslateElement({
@@ -276,6 +338,7 @@
     }, 'google_translate_element');
   }
 </script>
+<!-- Script externe de Google (seule dépendance tierce avec Google Fonts). Il fait que Google reçoit les visites des pages : à mentionner dans la politique de confidentialité. -->
 <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>

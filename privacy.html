@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+<!-- PAGE : Politique de confidentialité.
+     Texte juridique standard dans .legal-content. À faire valider par le client ou un juriste avant toute modification de fond.
+     Le menu (en-tête), le menu mobile et le pied de page sont COPIÉS à l'identique dans les 9 pages (pas de système d'include). Toute modification de ces blocs doit être répétée dans chaque fichier .html.
+     Commentaires rédigés en français ; ils n'ont aucun effet sur l'affichage. -->
 <head>
 <meta charset="UTF-8">
+<!-- Adaptation mobile : sans cette balise, le site s'affiche en version bureau réduite sur téléphone. -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- RÉFÉRENCEMENT (SEO) : titre de l'onglet et de Google, meta description, adresse canonique, aperçu de partage (Open Graph pour Facebook/LinkedIn/WhatsApp, Twitter). Textes propres à chaque page : les modifier page par page. L'adresse canonical doit rester celle du domaine principal du site. -->
 <title>Privacy Policy — OrigoVia Partners</title>
 <meta name="description" content="Privacy policy for the OrigoVia Partners website.">
 <link rel="canonical" href="https://origoviapartners.com/privacy.html">
@@ -16,25 +22,32 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Privacy Policy — OrigoVia Partners">
 <meta name="twitter:description" content="Privacy policy for the OrigoVia Partners website.">
+<!-- Polices Google Fonts (Plus Jakarta Sans pour les titres, Inter pour le texte). Si on change de police, modifier aussi les variables de police dans :root de assets/styles.css. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- Feuille de style unique du site : toutes les couleurs et mises en page sont dans assets/styles.css. -->
 <link rel="stylesheet" href="assets/styles.css">
+  <!-- Icône d'onglet (favicon). Elle pointe vers logo.jpeg ; l'idéal est un vrai fichier .png ou .ico carré. -->
   <link rel="icon" type="image/png" href="assets/img/logo.jpeg">
 </head>
 <body>
 
+<!-- EN-TÊTE FIXE. Le menu (en-tête), le menu mobile et le pied de page sont COPIÉS à l'identique dans les 9 pages (pas de système d'include). Toute modification de ces blocs doit être répétée dans chaque fichier .html.
+     L'id siteHeader est utilisé par main.js (classe scrolled au défilement). -->
 <header id="siteHeader" class="solid">
   <div class="wrap navbar">
     <a href="index.html" class="logo">
       <span class="logo-mark"><img src="assets/img/logo.jpeg" alt="OrigoVia Partners"></span>
       OrigoVia Partners
     </a>
+    <!-- Menu de bureau (caché sous 900 px). Pour ajouter une page : ajouter un <li> ici ET un bloc dans le menu mobile plus bas. -->
     <nav class="primary">
       <ul>
         <li><a href="index.html" class="top-link">Home</a></li>
         <li>
           <a href="for-importers.html" class="top-link">For Importers <span class="caret"></span></a>
+          <!-- Sous-menu déroulant (affiché au survol par le CSS). Les liens du type page.html#id visent les sections qui portent cet id. -->
           <div class="dropdown">
             <a href="for-importers.html#sourcing">The value chain challenge</a>
             <a href="for-importers.html#quality">ESG &amp; due diligence</a>
@@ -70,18 +83,22 @@
         <li><a href="contact.html" class="top-link active">Contact</a></li>
       </ul>
     </nav>
+    <!-- Conteneur du widget Google Translate. Il est caché mais NE DOIT PAS être supprimé : sinon la traduction ne marche plus (voir main.js, section 5). -->
     <div id="google_translate_element" class="gt-hidden"></div>
+    <!-- Sélecteur de langue. Pour ajouter une langue : une option ici, une option dans le sélecteur du menu mobile, et le code dans includedLanguages en bas de page. -->
     <select class="lang-switch" aria-label="Language">
       <option value="en">EN</option>
       <option value="fr">FR</option>
       <option value="nl">NL</option>
     </select>
+    <!-- Bouton hamburger (mobile). Piloté par main.js, section 4. -->
     <button class="hamburger" id="hamburger" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
   </div>
 </header>
 
+<!-- MENU MOBILE : voile sombre puis panneau latéral. Doit contenir les mêmes pages que le menu de bureau. -->
 <div class="mobile-nav-backdrop" id="mobileBackdrop"></div>
 <nav class="mobile-nav" id="mobileNav">
   <select class="lang-switch" aria-label="Language">
@@ -131,7 +148,9 @@
   <a href="contact.html">Contact</a>
 </nav>
 
+<!-- Section sur fond blanc. -->
 <section class="page-banner" style="min-height:32vh;">
+  <!-- Tracé décoratif animé (SVG) : purement visuel, sans lien avec les données. -->
   <div class="hero-route">
     <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
       <path class="route-path" d="M120,620 C260,560 300,420 420,380 C540,340 560,220 700,180 C820,150 900,220 1040,140" />
@@ -143,6 +162,7 @@
   </div>
 </section>
 
+<!-- Section sur fond blanc. Titre : « 1. Who we are ». -->
 <section>
   <div class="wrap">
     <div class="legal-content">
@@ -178,6 +198,7 @@
   </div>
 </section>
 
+<!-- PIED DE PAGE : colonnes de liens, e-mail contact@origoviapartners.com, lien LinkedIn. Copié dans les 9 pages. -->
 <footer>
   <div class="wrap">
     <div class="footer-grid">
@@ -198,6 +219,7 @@
         <ul><li><a href="mailto:contact@origoviapartners.com">contact@origoviapartners.com</a></li><li><a href="contact.html">Abidjan, Côte d'Ivoire</a></li><li><a href="https://www.linkedin.com/company/origovia-partners" target="_blank" rel="noopener">LinkedIn</a></li></ul>
       </div>
     </div>
+    <!-- Ligne du bas du pied de page : droits d'auteur et liens légaux (privacy.html, cookies.html). -->
     <div class="footer-bottom">
       <span>© 2026 OrigoVia Partners. All rights reserved.</span>
       <span><a href="privacy.html" style="color:rgba(255,255,255,.45);">Privacy policy</a> · <a href="cookies.html" style="color:rgba(255,255,255,.45);">Cookie policy</a></span>
@@ -207,7 +229,9 @@
 
 
 
+<!-- SCRIPTS : main.js gère les animations, le menu mobile, le sélecteur de langue et les onglets (voir l'en-tête de assets/main.js). -->
 <script src="assets/main.js"></script>
+<!-- Initialisation de Google Translate : includedLanguages liste les langues proposées. Les traductions sont automatiques et peuvent contenir des erreurs. -->
 <script type="text/javascript">
   function googleTranslateElementInit() {
     new google.translate.TranslateElement({
@@ -218,6 +242,7 @@
     }, 'google_translate_element');
   }
 </script>
+<!-- Script externe de Google (seule dépendance tierce avec Google Fonts). Il fait que Google reçoit les visites des pages : à mentionner dans la politique de confidentialité. -->
 <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>

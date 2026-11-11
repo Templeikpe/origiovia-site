@@ -1,9 +1,29 @@
 /* ===========================================================
-   OrigioVia Partners — shared design system
-   Palette: navy #0F2C59 / terracotta #C87D55 / light #F8F9FA
-   Type: Plus Jakarta Sans (display) + Inter (body)
+   OrigoVia Partners : feuille de style commune (design system)
+   ===========================================================
+   Cette feuille est chargée par les 9 pages avec
+   <link rel="stylesheet" href="assets/styles.css">.
+   Palette : bleu marine #0F2C59 / terracotta #C87D55 / gris clair #F8F9FA
+   Polices : Plus Jakarta Sans (titres) + Inter (texte courant)
+
+   Plan du fichier :
+     1. Variables, réinitialisation, conteneur
+     2. Navigation de bureau
+     3. Hero d'accueil et bannières des pages intérieures
+     4. Sections génériques, chiffres clés, cartes, étapes
+     5. Bannières citation, trust bar, statistiques
+     6. Formulaire de contact, pied de page
+     7. Animation d'apparition et adaptation aux écrans (media queries)
+     8. Ajouts : carte du corridor, composants des pages de service
+     9. Menu mobile et sélecteur de langue
+    10. Tableau comparatif (page For Processors)
+    11. Règle qui masque le badge Netlify
+
+   Pour changer une couleur de marque, modifiez les variables de :root
+   ci-dessous plutôt que les valeurs dans chaque règle.
    =========================================================== */
 :root{
+  /* Couleurs de marque : modifier ici change la couleur sur tout le site. */
   --navy: #0F2C59;
   --navy-deep: #081A38;
   --navy-mid: #16386E;
@@ -11,25 +31,33 @@
   --terracotta-light: #E3A981;
   --bg-light: #F8F9FA;
   --bg-white: #FFFFFF;
+  /* Couleurs du texte (principal et atténué) */
   --ink: #16202E;
   --ink-soft: #5C6472;
+  /* Couleur des filets et des bordures */
   --line: #E4E7EC;
+  /* Polices (chargées depuis Google Fonts dans le <head> de chaque page) */
   --display: 'Plus Jakarta Sans', sans-serif;
   --body: 'Inter', sans-serif;
 }
+/* Réinitialisation de base : supprime les marges par défaut et inclut les bordures dans les largeurs. */
 *{margin:0;padding:0;box-sizing:border-box;}
+/* Défilement fluide pour les liens #ancre (coupé plus bas si le visiteur réduit les animations). */
 html{scroll-behavior:smooth;}
 body{font-family:var(--body);color:var(--ink);background:var(--bg-white);line-height:1.6;overflow-x:hidden;}
 img{max-width:100%;display:block;}
 a{text-decoration:none;color:inherit;}
 ul{list-style:none;}
+/* .wrap : conteneur centré de 1240 px maximum, utilisé dans presque toutes les sections. */
 .wrap{max-width:1240px;margin:0 auto;padding:0 40px;}
 h1,h2,h3{font-family:var(--display);letter-spacing:-0.01em;}
 
 /* ---------- NAV ---------- */
+/* En-tête fixe en haut de page. La classe .scrolled est ajoutée par main.js au défilement ; .solid est écrite directement dans le HTML des pages intérieures. */
 header{position:fixed;top:0;left:0;right:0;z-index:100;transition:background .35s ease, box-shadow .35s ease, padding .35s ease;padding:26px 0;}
 header.scrolled, header.solid{background:rgba(15,44,89,0.97);box-shadow:0 8px 30px rgba(8,26,56,.25);padding:14px 0;backdrop-filter:blur(6px);}
 .navbar{display:flex;align-items:center;justify-content:space-between;}
+/* Logo (image + nom) en haut à gauche de l'en-tête. */
 .logo{
     font-family:var(--display);
     font-weight:700;
@@ -62,6 +90,7 @@ header.scrolled, header.solid{background:rgba(15,44,89,0.97);box-shadow:0 8px 30
     display:block;
 }
 
+/* Menu principal de bureau. Il est caché sous 900 px (voir plus bas) et remplacé par le menu mobile. */
 nav.primary{
     display:flex;
     gap:6px;
@@ -71,43 +100,53 @@ nav.primary li{position:relative;}
 nav.primary a.top-link{color:rgba(255,255,255,.88);font-size:.86rem;font-weight:500;padding:10px 16px;display:flex;align-items:center;gap:6px;border-radius:6px;transition:background .2s;}
 nav.primary a.top-link.active{color:#fff;background:rgba(255,255,255,.1);}
 nav.primary a.top-link:hover{background:rgba(255,255,255,.08);color:#fff;}
+/* Petite flèche des entrées de menu qui ont un sous-menu. */
 .caret{width:8px;height:8px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg);margin-top:-3px;opacity:.7;}
+/* Sous-menu déroulant : caché par défaut, affiché au survol de l'élément parent (règle suivante). */
 .dropdown{position:absolute;top:calc(100% + 10px);left:0;min-width:230px;background:#fff;border-radius:10px;box-shadow:0 20px 45px rgba(8,26,56,.18);padding:10px;opacity:0;visibility:hidden;transform:translateY(8px);transition:all .22s ease;}
 li:hover .dropdown{opacity:1;visibility:visible;transform:translateY(0);}
 .dropdown a{display:block;padding:11px 14px;border-radius:7px;font-size:.86rem;color:var(--navy);font-weight:500;}
 .dropdown a:hover{background:var(--bg-light);color:var(--terracotta);}
+/* .nav-cta : bouton d'action de l'en-tête. Non utilisé dans le HTML actuel (réservé pour un futur bouton Contact). */
 .nav-cta{background:var(--terracotta);color:#fff;padding:11px 22px;border-radius:7px;font-size:.85rem;font-weight:600;margin-left:12px;transition:background .2s;}
 .nav-cta:hover{background:#b56a45;}
 
 /* ---------- HOMEPAGE HERO ---------- */
+/* Bloc d'accueil plein écran : image de fond (.section-bg), voile en dégradé (::before) et tracé animé de la route (.hero-route). */
 .hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;}
 .hero::before{content:'';position:absolute;inset:0;z-index:1;background-image:
   radial-gradient(ellipse at 15% 20%, rgba(200,125,85,.28), transparent 45%),
   linear-gradient(160deg, rgba(8,26,56,.62) 0%, rgba(15,44,89,.56) 55%, rgba(22,56,110,.5) 100%);}
+/* Image de fond qui couvre toute la section (hero et bannières). */
 .section-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;}
 .hero-route{position:absolute;inset:0;width:100%;height:100%;opacity:.55;z-index:1;}
 .hero-route svg{width:100%;height:100%;}
+/* Tracé animé : le trait se dessine peu à peu (animation draw), puis les points apparaissent (fadein). */
 .route-path{fill:none;stroke:var(--terracotta-light);stroke-width:1.4;stroke-dasharray:1000;stroke-dashoffset:1000;opacity:.55;animation:draw 3.5s ease forwards .4s;}
 @keyframes draw{to{stroke-dashoffset:0;}}
 .route-node{fill:var(--terracotta);opacity:0;animation:fadein .6s ease forwards;}
 @keyframes fadein{to{opacity:1;}}
 .hero-content{position:relative;z-index:2;padding-top:80px;}
+/* .eyebrow : petit texte en majuscules placé au-dessus d'un titre. */
 .eyebrow{color:var(--terracotta-light);font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;margin-bottom:22px;display:flex;align-items:center;gap:10px;}
 .eyebrow::before{content:"";width:28px;height:1px;background:var(--terracotta-light);}
 .hero h1{color:#fff;font-size:clamp(2.4rem, 4.6vw, 4.1rem);font-weight:700;line-height:1.08;max-width:820px;margin-bottom:26px;}
 .hero h1 em{color:var(--terracotta-light);font-style:normal;}
 .hero p.lead{color:rgba(255,255,255,.78);font-size:1.12rem;max-width:560px;margin-bottom:42px;font-weight:400;}
 .cta-row{display:flex;gap:16px;flex-wrap:wrap;}
+/* Boutons : .btn-primary (terracotta, plein) et .btn-ghost (contour blanc, pour fonds sombres). */
 .btn{display:inline-flex;align-items:center;gap:10px;padding:15px 28px;border-radius:8px;font-size:.92rem;font-weight:600;transition:all .22s ease;}
 .btn-primary{background:var(--terracotta);color:#fff;}
 .btn-primary:hover{background:#b56a45;transform:translateY(-2px);}
 .btn-ghost{border:1px solid rgba(255,255,255,.35);color:#fff;}
 .btn-ghost:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.6);}
+/* Indication 'Scroll' en bas du hero (page d'accueil uniquement). */
 .scroll-cue{position:absolute;bottom:38px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.55);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:10px;z-index:2;}
 .scroll-cue .line{width:1px;height:34px;background:linear-gradient(to bottom, rgba(255,255,255,.6), transparent);animation:pulse 2s infinite;}
 @keyframes pulse{0%,100%{opacity:.4;}50%{opacity:1;}}
 
 /* ---------- INNER PAGE BANNER (For Importers / Processors / About / Contact) ---------- */
+/* Bannière des pages intérieures : même principe que le hero, mais plus basse (46 % de la hauteur de l'écran). */
 .page-banner{position:relative;min-height:46vh;display:flex;align-items:flex-end;padding-bottom:64px;overflow:hidden;margin-top:0;}
 .page-banner::before{content:'';position:absolute;inset:0;z-index:1;background-image:
   radial-gradient(ellipse at 85% 10%, rgba(200,125,85,.24), transparent 50%),
@@ -116,13 +155,17 @@ li:hover .dropdown{opacity:1;visibility:visible;transform:translateY(0);}
 .page-banner .wrap{position:relative;z-index:2;padding-top:120px;}
 .page-banner h1{color:#fff;font-size:clamp(2rem,3.6vw,3rem);font-weight:700;max-width:760px;margin-bottom:16px;}
 .page-banner p.lead{color:rgba(255,255,255,.78);font-size:1.05rem;max-width:560px;margin-bottom:0;}
+/* Fil d'Ariane (Home / Page) dans la bannière. */
 .breadcrumb{display:flex;gap:8px;align-items:center;color:rgba(255,255,255,.55);font-size:.82rem;margin-bottom:18px;}
 .breadcrumb a{color:rgba(255,255,255,.75);}
 .breadcrumb a:hover{color:var(--terracotta-light);}
 
 /* ---------- SECTIONS GENERIC ---------- */
+/* ATTENTION : cette règle s'applique à TOUTES les balises <section> (130 px de marge verticale). Pour une section différente, utilisez un style en ligne ou une classe dédiée. */
 section{padding:130px 0;}
+/* .section-light : fond gris très clair, pour alterner avec les sections blanches. */
 .section-light{background:var(--bg-light);}
+/* .section-head : bloc de titre d'une section (eyebrow + h2 + texte). */
 .section-head{max-width:640px;margin-bottom:70px;}
 .section-head .eyebrow{color:var(--terracotta);}
 .section-head .eyebrow::before{background:var(--terracotta);}
@@ -131,6 +174,7 @@ section{padding:130px 0;}
 .section-head.center{margin-left:auto;margin-right:auto;text-align:center;}
 
 /* ---------- KPI BAND ---------- */
+/* Bande bleue de chiffres clés. Les nombres sont animés par main.js (attributs data-target et data-suffix dans le HTML). */
 .kpi-band{background:var(--navy);position:relative;padding:90px 0;overflow:hidden;}
 .kpi-band::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 85% 30%, rgba(200,125,85,.14), transparent 50%);}
 .kpi-grid{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:0;}
@@ -140,9 +184,11 @@ section{padding:130px 0;}
 .kpi .label{color:rgba(255,255,255,.75);font-size:.86rem;font-weight:500;max-width:180px;}
 
 /* ---------- CARDS ---------- */
+/* Grille de cartes : 4 colonnes par défaut ; .cols-2 pour 2 colonnes (.cols-3 existe mais n'est pas utilisé). Passe à 2 puis 1 colonne sur petits écrans. */
 .card-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;}
 .card-grid.cols-3{grid-template-columns:repeat(3,1fr);}
 .card-grid.cols-2{grid-template-columns:repeat(2,1fr);}
+/* Une carte : fond blanc, léger soulèvement au survol. */
 .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:38px 30px;transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;}
 .card:hover{transform:translateY(-6px);box-shadow:0 24px 50px rgba(15,44,89,.1);border-color:transparent;}
 .card-icon{width:46px;height:46px;border-radius:10px;background:linear-gradient(135deg,var(--navy),var(--navy-mid));display:flex;align-items:center;justify-content:center;margin-bottom:24px;}
@@ -154,6 +200,7 @@ section{padding:130px 0;}
 .card:hover a.card-link .arrow{transform:translateX(4px);}
 
 /* ---------- NUMBERED STEP LIST (process) ---------- */
+/* Liste d'étapes numérotées (.step-list et .step). Non utilisée dans les pages actuelles. */
 .step-list{display:flex;flex-direction:column;}
 .step{display:grid;grid-template-columns:70px 1fr;gap:28px;padding:34px 0;border-top:1px dashed #C9CFD8;}
 .step:first-child{border-top:none;}
@@ -162,6 +209,7 @@ section{padding:130px 0;}
 .step p{color:var(--ink-soft);font-size:.94rem;max-width:640px;}
 
 /* ---------- PARALLAX BANNER ---------- */
+/* Bannière 'citation' sur fond bleu (pages For ...). Le dessin de carte est un SVG placé dans .map-overlay. */
 .parallax-banner{position:relative;min-height:64vh;display:flex;align-items:center;background:
   linear-gradient(160deg, rgba(8,26,56,.92), rgba(15,44,89,.85)), var(--navy);
   background-attachment:fixed;background-size:cover;background-position:center;overflow:hidden;}
@@ -174,6 +222,7 @@ section{padding:130px 0;}
 .quote .attribution{color:rgba(255,255,255,.65);font-size:.88rem;}
 
 /* ---------- ORIGINS / TWO-COL LAYOUT ---------- */
+/* Mise en page à deux colonnes (texte + visuel) de la section 'About' de l'accueil. Les classes .origin-list et .map-visual ne sont pas utilisées aujourd'hui. */
 .origins-layout{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;}
 .origin-list{display:grid;grid-template-columns:1fr 1fr;gap:22px 30px;margin-top:36px;}
 .origin-item{border-top:1px dashed #C9CFD8;padding-top:16px;}
@@ -183,6 +232,7 @@ section{padding:130px 0;}
 .map-visual svg{width:100%;height:100%;}
 
 /* ---------- TRUST BAR ---------- */
+/* Barre 'Standards we operate under' (page d'accueil). Les .badge sont du texte stylé, pas de vrais logos : pour afficher un logo officiel, remplacer le texte d'un .badge par une balise <img>. */
 .trust-bar{background:var(--bg-white);padding:70px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
 .trust-label{text-align:center;color:var(--ink-soft);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:38px;font-weight:600;}
 .badge-row{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:16px;}
@@ -190,12 +240,14 @@ section{padding:130px 0;}
 .badge .dot{width:7px;height:7px;border-radius:50%;background:var(--terracotta);}
 
 /* ---------- STAT ROW (compact, for inner pages) ---------- */
+/* Rangée de 3 statistiques compactes (pages For Importers et For Processors). */
 .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;}
 .stat{border-top:2px solid var(--terracotta);padding-top:18px;}
 .stat .num{font-family:var(--display);font-size:2.2rem;font-weight:800;color:var(--navy);}
 .stat .label{color:var(--ink-soft);font-size:.86rem;margin-top:6px;}
 
 /* ---------- FORM (contact) ---------- */
+/* Formulaire et coordonnées de contact (contact.html). Chaque champ est dans un <div class="field">. */
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:flex-start;}
 .field{margin-bottom:22px;}
 .field label{display:block;font-size:.82rem;font-weight:600;color:var(--navy);margin-bottom:8px;}
@@ -210,6 +262,7 @@ section{padding:130px 0;}
 .contact-info-item p{color:var(--ink-soft);font-size:.9rem;}
 
 /* ---------- TEAM GRID (about) ---------- */
+/* Équipe (.team-grid) : style prévu pour une page 'About' absente de la structure actuelle. Non utilisé aujourd'hui. */
 .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;}
 .team-card{text-align:left;}
 .team-photo{aspect-ratio:1/1;border-radius:14px;background:linear-gradient(150deg,var(--navy),var(--navy-mid));margin-bottom:18px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
@@ -218,6 +271,7 @@ section{padding:130px 0;}
 .team-card .role{color:var(--terracotta);font-size:.82rem;font-weight:600;}
 
 /* ---------- TIMELINE (about) ---------- */
+/* Chronologie (.timeline) : non utilisée aujourd'hui. */
 .timeline{position:relative;padding-left:36px;border-left:2px solid var(--line);}
 .timeline-item{position:relative;padding-bottom:44px;}
 .timeline-item:last-child{padding-bottom:0;}
@@ -226,6 +280,7 @@ section{padding:130px 0;}
 .timeline-item p{color:var(--ink-soft);font-size:.92rem;max-width:560px;}
 
 /* ---------- CTA BANNER ---------- */
+/* Bandeau d'appel à l'action en bas de page (fond terracotta). */
 .cta-banner{background:linear-gradient(120deg,var(--terracotta),#b56a45);padding:90px 0;}
 .cta-inner{display:flex;justify-content:space-between;align-items:center;gap:40px;flex-wrap:wrap;}
 .cta-inner h2{color:#fff;font-size:clamp(1.6rem,2.6vw,2.3rem);max-width:520px;line-height:1.25;}
@@ -233,6 +288,7 @@ section{padding:130px 0;}
 .cta-inner .btn-primary:hover{background:var(--navy-deep);}
 
 /* ---------- FOOTER ---------- */
+/* Pied de page commun aux 9 pages (4 colonnes : présentation, Company, Solutions, Contact). */
 footer{background:var(--navy-deep);color:rgba(255,255,255,.7);padding:90px 0 40px;}
 .footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:50px;margin-bottom:70px;}
 .footer-logo{color:#fff;font-family:var(--display);font-weight:700;font-size:1.2rem;margin-bottom:18px;}
@@ -244,10 +300,12 @@ footer{background:var(--navy-deep);color:rgba(255,255,255,.7);padding:90px 0 40p
 .footer-bottom{border-top:1px solid rgba(255,255,255,.12);padding-top:28px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;font-size:.8rem;color:rgba(255,255,255,.45);}
 
 /* ---------- REVEAL ---------- */
+/* Animation d'apparition : l'élément est invisible et décalé de 24 px ; main.js ajoute la classe .in quand il devient visible. */
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease, transform .7s ease;}
 .reveal.in{opacity:1;transform:translateY(0);}
 
 /* ---------- RESPONSIVE ---------- */
+/* Adaptation aux écrans : tablette et mobile (900 px), puis petit mobile (600 px). */
 @media (max-width:900px){
   nav.primary{display:none;}
   .kpi-grid{grid-template-columns:repeat(2,1fr);gap:32px 0;}
@@ -272,6 +330,7 @@ footer{background:var(--navy-deep);color:rgba(255,255,255,.7);padding:90px 0 40p
   .compare-block{padding:26px 22px;}
   .mobile-nav{width:100vw;padding:90px 22px 40px;}
 }
+/* Accessibilité : si le visiteur a demandé moins d'animations dans son système, on les désactive. */
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto;}
   .route-path,.scroll-cue .line,.reveal{animation:none !important;transition:none !important;opacity:1 !important;transform:none !important;}
@@ -283,6 +342,7 @@ footer{background:var(--navy-deep);color:rgba(255,255,255,.7);padding:90px 0 40p
    =========================================================== */
 
 /* ---------- CORRIDOR MAP ---------- */
+/* Carte interactive du corridor (corridor.html). Chaque .pin (point) ouvre une fenêtre d'information ; la logique est dans le script en ligne de corridor.html. */
 .corridor-section{background:linear-gradient(180deg, var(--navy-deep) 0%, #06152C 100%);padding:70px 0 110px;position:relative;overflow:hidden;}
 .corridor-map{position:relative;margin-top:60px;border-radius:20px;border:1px solid rgba(255,255,255,.08);background:radial-gradient(ellipse at 20% 30%, rgba(200,125,85,.1), transparent 55%), radial-gradient(ellipse at 85% 60%, rgba(227,169,129,.08), transparent 50%);padding:0;overflow:hidden;}
 .corridor-map svg{display:block;width:100%;height:auto;}
@@ -299,6 +359,7 @@ footer{background:var(--navy-deep);color:rgba(255,255,255,.7);padding:90px 0 40p
 .pin-sub{fill:rgba(255,255,255,.55);font-family:'Inter',sans-serif;font-size:10.5px;}
 .corridor-hint{text-align:center;color:rgba(255,255,255,.4);font-size:.78rem;margin-top:22px;letter-spacing:.04em;}
 
+/* Fenêtre d'information (popup) ouverte au clic sur un point de la carte ; la classe .open l'affiche. */
 .popup-overlay{position:fixed;inset:0;background:rgba(6,21,44,.6);backdrop-filter:blur(2px);z-index:200;display:none;align-items:center;justify-content:center;padding:24px;}
 .popup-overlay.open{display:flex;}
 .popup-card{background:#fff;border-radius:16px;max-width:400px;width:100%;padding:34px;position:relative;box-shadow:0 30px 80px rgba(0,0,0,.4);}
@@ -309,6 +370,7 @@ footer{background:var(--navy-deep);color:rgba(255,255,255,.7);padding:90px 0 40p
 .popup-close:hover{background:var(--line);}
 
 /* ---------- KPI TAG BLOCKS (bracket style) ---------- */
+/* Étiquettes de chiffres clés avec crochets (pages For Investors et For Processors). */
 .kpi-tag-row{display:flex;flex-wrap:wrap;gap:16px;margin-bottom:10px;}
 .kpi-tag{background:var(--navy);color:#fff;border-radius:10px;padding:16px 24px;font-family:var(--display);font-weight:700;font-size:1.05rem;display:flex;align-items:center;gap:4px;}
 .kpi-tag .bracket{color:var(--terracotta-light);font-weight:800;}
@@ -316,6 +378,7 @@ footer{background:var(--navy-deep);color:rgba(255,255,255,.7);padding:90px 0 40p
 .kpi-tag.light .bracket{color:var(--terracotta);}
 
 /* ---------- COMPARISON BAR (broker vs direct) ---------- */
+/* Barres de comparaison 'broker' contre 'direct' (page For Processors). */
 .compare-block{background:var(--bg-light);border-radius:16px;padding:40px;}
 .compare-row{margin-bottom:26px;}
 .compare-row:last-child{margin-bottom:0;}
@@ -325,6 +388,7 @@ footer{background:var(--navy-deep);color:rgba(255,255,255,.7);padding:90px 0 40p
 .compare-row .compare-fill.alt{background:linear-gradient(90deg,var(--navy),var(--navy-mid));}
 
 /* ---------- ICON STAT ROW (KOR, moisture, etc.) ---------- */
+/* Grille d'icônes de statistiques (pages For Importers et For Processors). */
 .icon-stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
 .icon-stat{text-align:center;padding:26px 14px;border:1px solid var(--line);border-radius:12px;}
 .icon-stat .ic{width:40px;height:40px;margin:0 auto 14px;color:var(--terracotta);}
@@ -333,6 +397,7 @@ footer{background:var(--navy-deep);color:rgba(255,255,255,.7);padding:90px 0 40p
 .icon-stat p{color:var(--ink-soft);font-size:.78rem;}
 
 /* ---------- SERVICE PAGE HERO VARIANT ---------- */
+/* Pastille de catégorie dans les bannières des pages de service. */
 .service-tag{display:inline-block;background:rgba(255,255,255,.1);color:var(--terracotta-light);font-size:.74rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:8px 16px;border-radius:20px;margin-bottom:20px;border:1px solid rgba(255,255,255,.15);}
 
 @media (max-width:900px){
@@ -344,6 +409,7 @@ footer{background:var(--navy-deep);color:rgba(255,255,255,.7);padding:90px 0 40p
 }
 
 /* ---------- SPLIT PHOTO VISUAL (About section) ---------- */
+/* Visuel à deux photos superposées (section About de l'accueil). */
 .split-visual{border-radius:20px;overflow:hidden;aspect-ratio:1/1;display:flex;flex-direction:column;position:relative;box-shadow:0 24px 60px rgba(15,44,89,.18);}
 .split-visual img{width:100%;height:50%;object-fit:cover;display:block;}
 .split-visual .split-label{position:absolute;left:24px;color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:.82rem;text-shadow:0 2px 10px rgba(0,0,0,.55);}
@@ -356,6 +422,7 @@ footer{background:var(--navy-deep);color:rgba(255,255,255,.7);padding:90px 0 40p
 /* Language switcher — plain <select>, wired to Google Translate in main.js. The real
    Google Translate widget (#google_translate_element) is kept in the DOM but hidden;
    only our own styled select is visible. */
+/* Cache le vrai widget Google Translate tout en le laissant dans la page : s'il est supprimé du HTML, la traduction ne fonctionne plus. */
 .gt-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;}
 .lang-switch{
   margin-left:18px;
@@ -374,20 +441,25 @@ footer{background:var(--navy-deep);color:rgba(255,255,255,.7);padding:90px 0 40p
 }
 .lang-switch option{color:#0f2c59;}
 .mobile-nav .lang-switch{margin:0 0 20px;width:100%;border-color:rgba(255,255,255,.25);}
+/* Google insère une barre de traduction en haut de page et décale le contenu : ces deux règles l'empêchent. */
 body > .skiptranslate{display:none !important;} /* hide Google's top banner iframe */
 body{top:0 !important;}
+/* Bouton hamburger (trois barres), visible seulement sous 900 px. La classe .open le transforme en croix. */
 .hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:40px;height:40px;cursor:pointer;background:none;border:none;padding:6px;margin-left:8px;z-index:310;position:relative;}
 .hamburger span{display:block;width:100%;height:2px;background:#fff;border-radius:2px;transition:transform .25s ease, opacity .2s ease;}
 .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
 .hamburger.open span:nth-child(2){opacity:0;}
 .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
 
+/* Voile sombre derrière le menu mobile. */
 .mobile-nav-backdrop{display:none;position:fixed;inset:0;background:rgba(6,21,44,.55);z-index:290;opacity:0;transition:opacity .25s ease;}
 .mobile-nav-backdrop.open{display:block;opacity:1;}
 
+/* Panneau du menu mobile : glisse depuis la droite quand main.js ajoute la classe .open. */
 .mobile-nav{position:fixed;top:0;right:0;bottom:0;width:min(320px,84vw);background:var(--navy-deep);z-index:300;padding:96px 26px 40px;overflow-y:auto;transform:translateX(100%);transition:transform .3s ease;box-shadow:-24px 0 60px rgba(0,0,0,.35);}
 .mobile-nav.open{transform:translateX(0);}
 .mobile-nav > a{display:block;color:#fff;padding:15px 2px;border-bottom:1px solid rgba(255,255,255,.1);font-size:1rem;font-weight:600;font-family:'Plus Jakarta Sans',sans-serif;}
+/* Variante avec <details> : non utilisée dans le HTML actuel (les sous-menus utilisent .mobile-nav-group, plus bas). */
 .mobile-nav details{border-bottom:1px solid rgba(255,255,255,.1);}
 .mobile-nav details summary{color:#fff;padding:15px 2px;font-weight:600;font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;}
 .mobile-nav details summary::-webkit-details-marker{display:none;}
@@ -395,6 +467,7 @@ body{top:0 !important;}
 .mobile-nav details[open] summary::after{content:'–';}
 .mobile-nav details .sub-links{padding:0 0 12px 10px;}
 .mobile-nav details .sub-links a{display:block;font-weight:400;font-size:.9rem;padding:9px 0;color:rgba(255,255,255,.72);}
+/* Groupes du menu mobile : lien de page + bouton +/- qui ouvre les sous-liens (voir main.js, section 6). */
 .mobile-nav-group{border-bottom:1px solid rgba(255,255,255,.1);display:flex;flex-wrap:wrap;align-items:center;}
 .mobile-nav-group .mobile-nav-link{flex:1;color:#fff;padding:15px 2px;font-weight:600;font-family:'Plus Jakarta Sans',sans-serif;}
 .mobile-nav-group .mobile-nav-caret{flex:0 0 auto;background:none;border:none;color:var(--terracotta-light);font-size:1.3rem;font-weight:400;padding:15px 6px;line-height:1;cursor:pointer;}
@@ -403,8 +476,10 @@ body{top:0 !important;}
 .mobile-nav-group .sub-links{flex-basis:100%;padding:0 0 12px 10px;}
 .mobile-nav-group .sub-links[hidden]{display:none;}
 .mobile-nav-group .sub-links a{display:block;font-weight:400;font-size:.9rem;padding:9px 0;color:rgba(255,255,255,.72);}
+/* .mobile-cta : bouton d'action du menu mobile, non utilisé dans le HTML actuel. */
 .mobile-nav .mobile-cta{display:block;margin-top:24px;background:var(--terracotta);color:#fff;text-align:center;padding:14px;border-radius:8px;font-weight:600;font-size:.92rem;}
 
+/* Bascule menu mobile / menu de bureau selon la largeur d'écran (seuil 900 px). */
 @media (max-width:900px){
   .hamburger{display:flex;}
   .nav-cta{display:none;}
@@ -417,6 +492,7 @@ body{top:0 !important;}
    Spec: Cahier_de_charges_Tableau_Comparatif_Origovia.pdf
    Colors: Terracotta #C85A32 / Dark Navy #1B2434 (scoped to this section)
    =========================================================== */
+/* Section 'Break Free from Intermediary Margins' (page For Processors, id compare-summary). Ses couleurs sont définies localement avec les variables --cs-* pour ne pas affecter le reste du site. */
 #compare-summary{
   --cs-terracotta: #C85A32;
   --cs-navy: #1B2434;
@@ -469,6 +545,7 @@ body{top:0 !important;}
 .cs-row-label{font-weight:600;color:var(--ink-soft);font-size:.78rem;text-transform:uppercase;letter-spacing:.03em;}
 .cs-tab-list li strong{color:var(--cs-terracotta);}
 
+/* Sous 768 px : on cache le tableau et on affiche les onglets (voir main.js, section 7). */
 @media (max-width: 767px){
   .cs-table-wrap{display:none;}
   .cs-tabs{display:block;}
@@ -485,3 +562,20 @@ body{top:0 !important;}
 }
 .cs-cta h3{color:#fff;font-family:var(--display);font-size:1.35rem;font-weight:700;margin-bottom:22px;}
 .cs-cta .btn-primary{background:var(--cs-terracotta);}
+
+/* ===========================================================
+   MASQUAGE DU BADGE NETLIFY
+   Ajouté pour cacher le widget "Powered by Netlify" / "Build your
+   own site with Netlify" injecté par la plateforme d'hébergement.
+   =========================================================== */
+/* Cache tout élément dont l'id, la classe ou le lien contient 'netlify'. Si un composant Netlify visible devient nécessaire (par exemple Netlify Forms avec un message de confirmation), il faudra adapter cette règle. */
+#netlify-badge,
+.netlify-badge,
+[id*="netlify" i],
+[class*="netlify-badge" i],
+[data-testid*="netlify" i],
+a[href*="netlify.com"],
+iframe[src*="netlify.com"] {
+  display: none !important;
+  visibility: hidden !important;
+}
